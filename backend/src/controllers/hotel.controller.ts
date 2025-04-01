@@ -34,3 +34,16 @@ export const createHotel = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Something went wrong" });
     }
 };
+export const getMyHotels = async (req: Request, res: Response) => {
+    try {
+        console.log("User ID from token:", req.userId); // Debugging
+
+        const hotels = await Hotel.find({ userId: req.userId });
+        console.log("Hotels found:", hotels); // Debugging
+
+        res.json(hotels);
+    } catch (error) {
+        console.error("❌ Error fetching hotels:", error);
+        res.status(500).json({ message: "Error fetching hotels" });
+    }
+};
